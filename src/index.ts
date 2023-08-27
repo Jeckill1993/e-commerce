@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 
 const dbConnect = require('./config/dbConnect');
 const authRouter = require('./routes/authRouter');
+const { notFound, errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 dotenv.config();
@@ -16,6 +17,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 app.use('/api/user', authRouter);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server is running at PORT ${PORT}`);
