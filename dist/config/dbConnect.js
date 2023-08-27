@@ -7,6 +7,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const dbConnect = () => {
     try {
         const connect = mongoose_1.default.connect(process.env.MONGODB_CONNECTION_URL);
+        if (!connect)
+            throw new Error('MONGODB_CONNECTION_URL is not defined in the environment variables.');
         console.log('database was connected');
     }
     catch (error) {
